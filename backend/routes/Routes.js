@@ -1,23 +1,42 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
+const model = require('../model/Model');
 module.exports = router;
 
-//POST 
-router.post('/post', (req, res) => {
-  res.send('POST')
+//ADD TASK
+router.post('/post', async(req, res) => {
+  const data = new model({
+    task: req.body.task,
+    isCompleted: req.body.isCompleted
+  })
+  try{
+    const saveData = await data.save();
+    res.status(200).json(dataToSave)
+
+  }
+  catch(error){
+    res.status(400).json({message: error.message})
+
+  }
 });
 
-//GET ALL
-router.get('/getAll', (req,res)=>{
-  res.send('GET ALL')
+//GET ALL TASKS
+router.get('/getAll', async (req,res)=>{
+  try{
+    const data = await Model.find();
+    res.json();
+  }
+  catch(error){
+    res.status(500).json({message: error.message});
+  }
 });
 
-//UPDATE
+//IS COMPLETED
 router.patch('/update/:id', (req,res)=>{
   res.send('UPDATE')
 });
 
-//DELETE
+//DELETE TASK
 router.delete('/delete/:id', (req, res) => {
   res.send('DELETE')
 })
