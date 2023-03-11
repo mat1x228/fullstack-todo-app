@@ -4,7 +4,7 @@ dotenv.config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const port = 8000;
+const port = 8080;
 
 const mongoConnection = process.env.DATABASE_URL;
 const database = mongoose.connection;
@@ -29,3 +29,4 @@ database.once('connected', ()=>{
 
 const routes = require('./routes/Routes');
 app.use('/api', routes)
+
